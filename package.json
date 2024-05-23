@@ -2,7 +2,7 @@
   "name": "tguess",
   "description": "Generate \"guess\" and \"tguess\" components for Arkose Labs Funcaptcha",
   "author": "bc",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {

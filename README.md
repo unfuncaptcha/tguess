@@ -34,9 +34,9 @@ await generateGuess(guess, sessionToken); // {"ct":"Kz2qbnq55...
 
 # reverse engineering
 
-The "tguess" component of a FunCaptcha answer seems to be a way of *verifying* a guess. It does so by providing a small JavaScript file when requesting session information, and having your guess be ran through it before submitting an answer. This is common "proof of work" approach taken by many different companies to try and combat simple botting attempts.
+The "tguess" component of a Funcaptcha answer seems to be a way of *verifying* a guess. It does so by providing a small JavaScript file when requesting session information, and having your guess be ran through it before submitting an answer. This is common "proof of work" approach taken by many different companies to try and combat simple botting attempts.
 
-When requesting `/fc/gfct`, the endpoint which nessasary important information about your captcha session, there will be a `dapib_url` field:
+When requesting `/fc/gfct`, the endpoint which fetches nessasary information on your captcha session, there will be a `dapib_url` field:
 
 ```js
 {
@@ -50,9 +50,9 @@ When requesting `/fc/gfct`, the endpoint which nessasary important information a
 }
 ```
 
-This URL encoded script file is unique to each FunCaptcha session, and will expire after a certain time. 
+This URL encoded script file is "unique to each Funcaptcha session" (~1200 files per day that rotate), and will expire after a certain time. 
 
-After "deobfuscating" the script and combing through some of its code, the script is run in an iframe where it communicates with the main FC JS through two values in the `window.parent.ae` object:
+After "deobfuscating" the script and combing through some of its code, the script is run in an iframe which communicates with the main FC JS through two properties in the `window.parent.ae` object:
 
 | Name | Description |
 | --- | --- |
@@ -105,7 +105,7 @@ The script does some work on your guess, transforming each guess into an object 
 }
 ```
 
-This list of "work proven" entries is then packaged up using Arkose Labs' general "ct"/"iv"/"s" format and sent along with your also packaged guess, bio, etc.
+This list of "work proven" entries is then packaged up using Arkose Labs' general "ct" / "iv" / "s" format and sent along with your also packaged guess, bio, etc.
 
 <br />
 
@@ -127,14 +127,14 @@ const answer = window.parent.ae.answer;
 n(answer, B);
 ```
 
-This code basically checks if certain variables/window properties exist in the currently running enciornment to detect NodeJs, JSDom, and other sandboxing methods. The problem with this implementation is that all it does is add one random character to the end of every entry in your tguess.
+This code basically checks if certain variables & window properties exist in the currently running enciornment to detect NodeJS, JSDom, and other sandboxing methods. The problem with this implementation is that all it does is add one random character to the end of every entry in your tguess.
 
 <br />
 
 To bypass their sandboxing detection you can either:
 
 - Remove this check totally before sandboxing
-- Make sure each variable/"window" property passes this check
+- Make sure each variable & "window" property passes this check
 - **Simply remove the random character from the object...**
 
 <br />
