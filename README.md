@@ -170,3 +170,15 @@ app.post("/tguess", async (req, res) => {
 app.listen(3000, () => console.log("Server started"));
 
 ```
+
+**`POST`** `http://localhost:3000/tguess`
+
+```json
+{
+    "guess": [
+	{"index": 1}
+    ],
+    "dapib_url": "https://client-api.arkoselabs.com/dapib/ap-southeast-1/c63fbbd1-c550-4342-a308-e1c96be38bc2/902.js?mac=xjLTKLENwqPuxVim4XJnJ6WMt0JC8U2IIsfSSnZcAVI%3D&expiry=1718054969465",
+    "session_token": "16817d7c04033d733.8703324805"
+}
+```
