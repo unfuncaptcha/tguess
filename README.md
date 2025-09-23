@@ -52,7 +52,7 @@ When requesting `/fc/gfct`, the endpoint which fetches nessasary information on 
 
 This URL encoded script file is "unique to each Funcaptcha session" (~1200 files per day that rotate), and will expire after a certain time. 
 
-After "deobfuscating" the script and combing through some of its code, the script is run in an iframe which communicates with the main FC JS through two properties in the `window.parent.ae` object:
+After toying with the script and combing through some of its code, the script is run in an iframe which communicates with the main FC JS through two properties in the `window.parent.ae` object:
 
 | Name | Description |
 | --- | --- |
@@ -105,7 +105,7 @@ The script does some work on your guess, transforming each guess into an object 
 }
 ```
 
-This list of "work proven" entries is then packaged up using Arkose Labs' general "ct" / "iv" / "s" format and sent along with your also packaged guess, bio, etc.
+This list of work proven entries is then packaged up using Arkose Labs' general "ct" / "iv" / "s" format and sent along with your also packaged guess, bio, etc.
 
 <br />
 
@@ -127,7 +127,7 @@ const answer = window.parent.ae.answer;
 n(answer, B);
 ```
 
-This code basically checks if certain variables & window properties exist in the currently running enciornment to detect NodeJS, JSDom, and other sandboxing methods. The problem with this implementation is that all it does is add one random character to the end of every entry in your tguess.
+This code basically checks if certain variables & window properties exist in the currently running environment to detect NodeJS, JSDom, and other sandboxing methods. The problem with this implementation is that all it does is add one random character to the end of every entry in your tguess.
 
 <br />
 
